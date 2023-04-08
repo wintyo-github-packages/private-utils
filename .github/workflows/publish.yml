@@ -34,11 +34,10 @@ jobs:
       # publish可能かのステータスを見る（0が正常。1がエラー）
       - id: publishable
         name: Check Publishable
-        run: |
-          (npx can-npm-publish --verbose
-            && echo "status=0" >> "$GITHUB_OUTPUT"
-          )
-            || echo "status=1" >> "$GITHUB_OUTPUT"
+        run: "\
+          npx can-npm-publish --verbose\
+          && echo status=0 >> $GITHUB_OUTPUT\
+          || echo status=1 >> $GITHUB_OUTPUT"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

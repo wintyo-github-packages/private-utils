@@ -36,7 +36,9 @@ jobs:
         name: Check Publishable
         run: |
           npx can-npm-publish --verbose
+          echo "status=$?"
           echo "status=$?" >> "GITHUB_OUTPUT"
+          exit 0
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

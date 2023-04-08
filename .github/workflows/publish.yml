@@ -36,8 +36,8 @@ jobs:
         name: Check Publishable
         run: "\
           npx can-npm-publish --verbose \
-          && echo status=0 >> $GITHUB_OUTPUT \
-          || echo status=1 >> $GITHUB_OUTPUT"
+          && echo status=0 >> \"$GITHUB_OUTPUT\" \
+          || echo status=1 >> \"$GITHUB_OUTPUT\""
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -52,7 +52,7 @@ jobs:
       # package.jsonのバージョンをenvに登録する
       - id: package-version
         name: Register Package Version
-        run: node -p -e '`PACKAGE_VERSION=${require("./package.json").version}`' >> $GITHUB_OUTPUT
+        run: node -p -e '`PACKAGE_VERSION=${require("./package.json").version}`' >> "$GITHUB_OUTPUT"
 
       # tagが振られてなかったら振る
       - name: Add Tag

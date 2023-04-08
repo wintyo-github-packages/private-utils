@@ -35,8 +35,8 @@ jobs:
       - id: publishable
         name: Check Publishable
         run: "\
-          npx can-npm-publish --verbose\
-          && echo status=0 >> $GITHUB_OUTPUT\
+          npx can-npm-publish --verbose \
+          && echo status=0 >> $GITHUB_OUTPUT \
           || echo status=1 >> $GITHUB_OUTPUT"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -47,6 +47,7 @@ jobs:
         run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISHABLE: ${{ steps.publishable.status }}
 
       # package.jsonのバージョンをenvに登録する
       - id: package-version

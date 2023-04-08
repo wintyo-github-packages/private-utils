@@ -47,12 +47,11 @@ jobs:
         run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISHABLE: ${{ steps.publishable.outputs.status }}
 
       # package.jsonのバージョンをenvに登録する
       - id: package-version
         name: Register Package Version
-        run: node -p -e '`PACKAGE_VERSION=${require("./package.json").version}`' >> "$GITHUB_OUTPUT"
+        run: node -p -e '`PACKAGE_VERSION=${require("./package.json").version}`' >> $GITHUB_OUTPUT
 
       # tagが振られてなかったら振る
       - name: Add Tag
@@ -60,6 +59,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           github_repo: ${{ github.repository }}
-          version: ${{ steps.package-version.PACKAGE_VERSION }}
+          version: ${{ steps.package-version.outputs.PACKAGE_VERSION }}
           git_commit_sha: ${{ github.sha }}
           git_tag_prefix: 'v'

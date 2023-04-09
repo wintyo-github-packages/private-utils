@@ -48,7 +48,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # package.jsonのバージョンをenvに登録する
+      # package.jsonのバージョンを取得する
       - id: package-version
         name: Register Package Version
         run: node -p -e '`PACKAGE_VERSION=${require("./package.json").version}`' >> $GITHUB_OUTPUT
